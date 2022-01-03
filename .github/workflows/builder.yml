@@ -1,0 +1,25 @@
+name: VAULT-BUILDER
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  docker-dev:
+    name: Publish - Docker Dev
+    runs-on: vault-dev
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+            docker stop GPVaultDev 2>/dev/null || true
+            docker rm GPVaultDev 2>/dev/null || true
+            cp /home/GaryVault/API/appsettings.Development.json appsettings.Development.json
+            docker build -t garyvaultapi-dev -f Dockerfile.dev .
+            docker create -p 0.0.0.0:5005:5005 --name "GPVaultDev" --restart unless-stopped --network="host" garyvaultapi-dev
+            docker start GPVaultDev
+      - uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+  
