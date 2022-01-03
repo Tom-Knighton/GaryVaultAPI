@@ -1,5 +1,6 @@
 ﻿using System;
 using GaryVaultAPI.Data;
+using Microsoft.Extensions.Options;
 using Org.OpenAPITools.Model;
 using RestSharp;
 
@@ -13,7 +14,7 @@ namespace GaryVaultAPI
     public class AuthenticationService: IAuthenticationService
     {
         private readonly AppSettings _appSettings;
-        public AuthenticationService(AppSettings appSettings) => _appSettings = appSettings;
+        public AuthenticationService(IOptions<AppSettings> appSettings) => _appSettings = appSettings.Value;
 
         public void Dispose()
         {
