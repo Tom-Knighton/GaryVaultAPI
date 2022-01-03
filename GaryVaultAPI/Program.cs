@@ -1,4 +1,6 @@
-using GaryVaultAPI;
+﻿using GaryVaultAPI;
+using GaryVaultAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -36,4 +38,5 @@ app.Run();
 static void SetupServices(WebApplicationBuilder builder)
 {
     builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+    builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 }
