@@ -35,7 +35,7 @@ namespace Org.OpenAPITools.Model
         /// Initializes a new instance of the <see cref="JWTRefresh" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected JWTRefresh() { }
+        public JWTRefresh() { }
         /// <summary>
         /// Initializes a new instance of the <see cref="JWTRefresh" /> class.
         /// </summary>
